@@ -80,7 +80,7 @@ void Menu::Update(float timeStep)
         const Vector<SharedPtr<UIElement> >& children = popup_->GetChildren();
         for (unsigned i = 0; i < children.Size(); ++i)
         {
-            Menu* menu = dynamic_cast<Menu*>(children[i].Get());
+            auto* menu = dynamic_cast<Menu*>(children[i].Get());
             if (menu && !menu->autoPopup_ && !menu->IsHovering())
                 menu->autoPopup_ = true;
         }
@@ -91,7 +91,7 @@ void Menu::OnHover(const IntVector2& position, const IntVector2& screenPosition,
 {
     Button::OnHover(position, screenPosition, buttons, qualifiers, cursor);
 
-    Menu* sibling = parent_->GetChildStaticCast<Menu>(VAR_SHOW_POPUP, true);
+    auto* sibling = parent_->GetChildStaticCast<Menu>(VAR_SHOW_POPUP, true);
     if (popup_ && !showPopup_)
     {
         // Check if popup is shown by one of the siblings
@@ -106,7 +106,7 @@ void Menu::OnHover(const IntVector2& position, const IntVector2& screenPosition,
         if (autoPopup_)
         {
             // Show popup when parent menu has its popup shown
-            Menu* parentMenu = static_cast<Menu*>(parent_->GetVar(VAR_ORIGIN).GetPtr());
+            auto* parentMenu = static_cast<Menu*>(parent_->GetVar(VAR_ORIGIN).GetPtr());
             if (parentMenu && parentMenu->showPopup_)
                 ShowPopup(true);
         }
@@ -314,7 +314,7 @@ void Menu::ShowPopup(bool enable)
         popup_->GetChildren(children, true);
         for (PODVector<UIElement*>::ConstIterator i = children.Begin(); i != children.End(); ++i)
         {
-            Menu* menu = dynamic_cast<Menu*>(*i);
+            auto* menu = dynamic_cast<Menu*>(*i);
             if (menu)
                 menu->ShowPopup(false);
         }
@@ -389,7 +389,7 @@ void Menu::HandleFocusChanged(StringHash eventType, VariantMap& eventData)
 
     using namespace FocusChanged;
 
-    UIElement* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
+    auto* element = static_cast<UIElement*>(eventData[P_ELEMENT].GetPtr());
     UIElement* root = GetRoot();
 
     // If another element was focused due to the menu button being clicked, do not hide the popup
