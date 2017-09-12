@@ -323,10 +323,10 @@ void AnimatedSprite2D::UpdateSourceBatchesSpine()
         if (!attachment)
             continue;
 
-        unsigned color = Color(color_.r_ * slot->r,
-            color_.g_ * slot->g,
-            color_.b_ * slot->b,
-            color_.a_ * slot->a).ToUInt();
+        unsigned color = Color(colors_.r_ * slot->r,
+            colors_.g_ * slot->g,
+            colors_.b_ * slot->b,
+            colors_.a_ * slot->a).ToUInt();
 
         if (attachment->type == SP_ATTACHMENT_REGION)
         {
@@ -339,10 +339,10 @@ void AnimatedSprite2D::UpdateSourceBatchesSpine()
             vertices[2].position_ = worldTransform * Vector3(slotVertices[SP_VERTEX_X3], slotVertices[SP_VERTEX_Y3]);
             vertices[3].position_ = worldTransform * Vector3(slotVertices[SP_VERTEX_X4], slotVertices[SP_VERTEX_Y4]);
 
-            vertices[0].color_ = color;
-            vertices[1].color_ = color;
-            vertices[2].color_ = color;
-            vertices[3].color_ = color;
+            vertices[0].colors_ = color;
+            vertices[1].colors_ = color;
+            vertices[2].colors_ = color;
+            vertices[3].colors_ = color;
 
             vertices[0].uv_ = Vector2(region->uvs[SP_VERTEX_X1], region->uvs[SP_VERTEX_Y1]);
             vertices[1].uv_ = Vector2(region->uvs[SP_VERTEX_X2], region->uvs[SP_VERTEX_Y2]);
@@ -363,7 +363,7 @@ void AnimatedSprite2D::UpdateSourceBatchesSpine()
             spMeshAttachment_computeWorldVertices(mesh, slot, slotVertices);
 
             Vertex2D vertex;
-            vertex.color_ = color;
+            vertex.colors_ = color;
             for (int j = 0; j < mesh->trianglesCount; ++j)
             {
                 int index = mesh->triangles[j] << 1;
@@ -385,7 +385,7 @@ void AnimatedSprite2D::UpdateSourceBatchesSpine()
             spSkinnedMeshAttachment_computeWorldVertices(skinnedMesh, slot, slotVertices);
 
             Vertex2D vertex;
-            vertex.color_ = color;
+            vertex.colors_ = color;
             for (int j = 0; j < skinnedMesh->trianglesCount; ++j)
             {
                 int index = skinnedMesh->triangles[j] << 1;
